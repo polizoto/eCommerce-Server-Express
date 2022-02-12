@@ -1,12 +1,43 @@
 const router = require('express').Router();
+const sequelize = require('../../config/connection');
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
-
 // get all products
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  Product.findAll({
+    // The sequel query would not work when the order was set to DESC or CREATED AT...will need to update
+    // order: [['DESC']],
+    attributes: [
+      'id',
+      'product_name',
+      'price',
+      'stock'
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ['category_name']
+      },
+      {
+        model: Tag,
+        attributes: ['tag_name']
+      }
+    ]
+   })
+   .then(dbPostData => {
+     if (!dbPostData) {
+       res.status(404).json({ message: 'No product found with this id' });
+       return;
+     }
+     res.json(dbPostData);
+   })
+   .catch(err => {
+     console.log(err);
+     res.status(500).json(err);
+   });
 });
 
 // get one product

@@ -1,11 +1,7 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
-
 router.get('/', (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
   Category.findAll({
     // The sequel query would not work when the order was set to DESC or CREATED AT...will need to update
     // order: [['DESC']],
@@ -22,7 +18,7 @@ router.get('/', (req, res) => {
    })
    .then(dbPostData => {
      if (!dbPostData) {
-       res.status(404).json({ message: 'No category found with this id' });
+       res.status(404).json({ message: 'No categories found' });
        return;
      }
      res.json(dbPostData);
@@ -31,12 +27,35 @@ router.get('/', (req, res) => {
      console.log(err);
      res.status(500).json(err);
    });
-
 });
 
 router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  Category.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'category_name'
+    ],
+    include: [
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      }
+    ]
+  })
+    .then(dbPostData => {
+      if (!dbPostData) {
+        res.status(404).json({ message: 'No category found with this id' });
+        return;
+      }
+      res.json(dbPostData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post('/', (req, res) => {

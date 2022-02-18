@@ -1,6 +1,6 @@
 # eCommerce-Server-Express
 
-An eCommerce database built on Express.js on Node.js.
+An eCommerce database built on Express.js and Node.js.
 
 ## Installation and Setup
 
@@ -27,13 +27,13 @@ An eCommerce database built on Express.js on Node.js.
 
 ## Usage
 
-Currently this is just the back-end API code. To test the routes:
+Currently this is the back-end API codebase only. To test the routes:
 
 1. Install [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download)
 2. From the app directory, `node server.js` to start the server on your computer on port 3001
-3. In Postman or Insomnia, enter the `GET`, `POST`, `PUT`, or `DELETE` route you wish to test and the requisite JSON data (for POST and PUT routes) e.g., 
+3. In Postman or Insomnia, enter the `GET`, `POST`, `PUT`, or `DELETE` route you wish to test and the requisite JSON data (for POST and PUT routes); e.g., 
 
-### GET Routes
+### GET
 
 - All items
 
@@ -79,4 +79,4 @@ Request Body (raw JSON)
 
 ## Video Demonstration
 
-<a href="https://www.dropbox.com/" target="_blank">Video Demonstration of Installation and Usage</a>
+<a href="https://www.dropbox.com/s/5lzox8cfo3nxuod/eCommerce%20Express%20Server%20Demo_captioned.mp4?dl=0" target="_blank">Video Demonstration of Installation and Usage</a>
